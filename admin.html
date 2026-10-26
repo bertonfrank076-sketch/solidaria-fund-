@@ -1,142 +1,158 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Administración | Solidaria Fund</title>
+  <title>Administration | Solidaria Fund</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f2f6fb;
-      color: #18304f;
-    }
-    header {
-      background: #102e55;
-      color: white;
-      padding: 24px 18px;
-    }
-    .top {
-      max-width: 1050px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .brand { font-size: 22px; font-weight: bold; }
-    .brand span { color: #72d6a0; }
-    header p { margin: 7px 0 0; color: #dce8f6; }
-    main {
-      max-width: 1050px;
-      margin: 32px auto;
-      padding: 0 16px;
-    }
-    .welcome {
-      background: white;
-      padding: 25px;
-      border-radius: 18px;
-      box-shadow: 0 8px 28px #18304f12;
-      margin-bottom: 22px;
-    }
-    h1 { margin: 0 0 10px; font-size: 28px; }
-    .muted { color: #65758a; line-height: 1.6; }
-    .notice {
-      background: #fff7df;
-      border: 1px solid #f0d58a;
-      color: #725515;
-      padding: 14px 16px;
-      border-radius: 12px;
-      margin-top: 18px;
-      line-height: 1.5;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 16px;
-    }
-    .card {
-      background: white;
-      padding: 22px;
-      border-radius: 16px;
-      box-shadow: 0 8px 28px #18304f10;
-    }
-    .symbol { font-size: 28px; }
-    .card h2 { font-size: 17px; margin: 12px 0 8px; }
-    .card p { color: #65758a; line-height: 1.55; margin-bottom: 0; }
-    .button {
-      display: inline-block;
-      margin-top: 16px;
-      background: #1765b4;
-      color: white;
-      padding: 11px 16px;
-      border-radius: 9px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    footer {
-      text-align: center;
-      color: #718096;
-      padding: 28px 16px;
-      font-size: 13px;
-    }
+    body { margin: 0; font-family: Arial, sans-serif; background: #f2f6fb; color: #18304f; }
+    header { background: #102e55; color: white; padding: 22px 18px; }
+    main { max-width: 1000px; margin: 28px auto; padding: 0 16px; }
+    .panel { background: white; padding: 22px; border-radius: 14px; margin-bottom: 18px; box-shadow: 0 5px 20px #18304f12; }
+    input, button { width: 100%; padding: 12px; margin: 7px 0; border-radius: 8px; font-size: 16px; }
+    input { border: 1px solid #ccd5e0; }
+    button { border: 0; background: #1765b4; color: white; font-weight: bold; cursor: pointer; }
+    .secondary { background: #52657a; }
+    .request { border-top: 1px solid #e1e7ef; padding: 14px 0; overflow-wrap: anywhere; }
+    .muted { color: #65758a; }
+    #status { white-space: pre-wrap; overflow-wrap: anywhere; }
+    [hidden] { display: none !important; }
   </style>
 </head>
 <body>
-  <header>
-    <div class="top">
-      <div>
-        <div class="brand">Solidaria <span>Fund</span></div>
-        <p>Espace d’administration</p>
-      </div>
-      <a href="index.html" style="color:white">← Voir le site</a>
-    </div>
-  </header>
+<header>
+  <h2>Solidaria Fund — Administration</h2>
+  <p>Gestion des demandes</p>
+</header>
 
-  <main>
-    <section class="welcome">
-      <h1>Tableau de bord</h1>
-      <p class="muted">
-        Bienvenue dans l’espace de gestion de Solidaria Fund.
-        Retrouvez ici les informations utiles pour administrer le site.
-      </p>
-      <div class="notice">
-        <strong>Mode démonstration :</strong> cette page est uniquement
-        visuelle. Elle ne possède pas de connexion sécurisée et ne récupère
-        pas les demandes envoyées depuis le formulaire.
-      </div>
-    </section>
+<main>
+  <section id="loginPanel" class="panel">
+    <h2>Connexion administrateur</h2>
+    <p class="muted">Connecte-toi avec ton compte Supabase.</p>
+    <form id="loginForm">
+      <input id="email" type="email" placeholder="Adresse e-mail" required>
+      <input id="password" type="password" placeholder="Mot de passe" required>
+      <button type="submit">Se connecter</button>
+    </form>
+  </section>
 
-    <section class="grid">
-      <article class="card">
-        <div class="symbol">📋</div>
-        <h2>Demandes reçues</h2>
-        <p>Les demandes ne sont pas stockées sur un serveur dans cette version.</p>
-      </article>
+  <section id="dashboard" class="panel" hidden>
+    <h2>Demandes reçues</h2>
+    <p id="count"></p>
+    <button id="refresh">Actualiser</button>
+    <button id="logout" class="secondary">Se déconnecter</button>
+    <div id="requests"></div>
+  </section>
 
-      <article class="card">
-        <div class="symbol">👥</div>
-        <h2>Bénéficiaires</h2>
-        <p>Préparez un système de suivi des dossiers lorsque le backend sera configuré.</p>
-      </article>
+  <section class="panel">
+    <p id="status">Prêt.</p>
+    <a href="index.html">← Retour au site</a>
+  </section>
+</main>
 
-      <article class="card">
-        <div class="symbol">🔒</div>
-        <h2>Sécurité</h2>
-        <p>Une authentification côté serveur sera nécessaire avant toute utilisation réelle.</p>
-      </article>
+<script>
+(() => {
+  const SUPABASE_URL = "https://dhbxjbgwkqhegdmwmjpy.supabase.co";
+  const SUPABASE_ANON_KEY = "COLLE_TA_CLE_PUBLIQUE_ICI";
 
-      <article class="card">
-        <div class="symbol">🌐</div>
-        <h2>Site public</h2>
-        <p>Retournez à la page d’accueil pour vérifier l’expérience des visiteurs.</p>
-        <a class="button" href="index.html">Ouvrir le site</a>
-      </article>
-    </section>
-  </main>
+  const status = document.getElementById("status");
+  const loginPanel = document.getElementById("loginPanel");
+  const dashboard = document.getElementById("dashboard");
+  const requests = document.getElementById("requests");
+  const count = document.getElementById("count");
 
-  <footer>© Solidaria Fund — Espace de démonstration</footer>
+  if (!window.supabase || SUPABASE_ANON_KEY === "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoYnhqYmd3a3FoZWdkbXdtanB5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI5Nzk0NTUsImV4cCI6MjEwODU1NTQ1NX0.J2jb9mwsp2u-QWWkRBy5ggEJo9W--QTVOsRGr5RgZf4") {
+    status.textContent = "Configuration incomplète : ajoute la clé publique Supabase.";
+    return;
+  }
+
+  const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  function safe(value) {
+    return String(value ?? "").replace(/[&<>"']/g, c => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;",
+      '"': "&quot;", "'": "&#39;"
+    })[c]);
+  }
+
+  function showLoggedIn(value) {
+    loginPanel.hidden = value;
+    dashboard.hidden = !value;
+  }
+
+  async function loadRequests() {
+    status.textContent = "Chargement des demandes…";
+    requests.innerHTML = "";
+
+    const { data, error } = await db
+      .from("demandes")
+      .select("id, nombre_complet, email, telephone, pays, motif, created_at")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      status.textContent = "Erreur de chargement : " + error.message;
+      return;
+    }
+
+    count.textContent = data.length + " demande(s)";
+
+    if (!data.length) {
+      requests.innerHTML = "<p>Aucune demande trouvée.</p>";
+    } else {
+      requests.innerHTML = data.map(item => `
+        <article class="request">
+          <h3>${safe(item.nombre_complet)}</h3>
+          <p><strong>Numéro :</strong> ${safe(item.id)}</p>
+          <p><strong>E-mail :</strong> ${safe(item.email)}</p>
+          <p><strong>Téléphone :</strong> ${safe(item.telephone)}</p>
+          <p><strong>Pays :</strong> ${safe(item.pays)}</p>
+          <p><strong>Motif :</strong> ${safe(item.motif)}</p>
+          <p class="muted">${safe(item.created_at ? new Date(item.created_at).toLocaleString("fr-FR") : "")}</p>
+        </article>
+      `).join("");
+    }
+
+    status.textContent = "Demandes actualisées.";
+  }
+
+  document.getElementById("loginForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    status.textContent = "Connexion en cours…";
+
+    const { error } = await db.auth.signInWithPassword({
+      email: document.getElementById("email").value.trim(),
+      password: document.getElementById("password").value
+    });
+
+    if (error) {
+      status.textContent = "Connexion impossible : " + error.message;
+      return;
+    }
+
+    showLoggedIn(true);
+    await loadRequests();
+  });
+
+  document.getElementById("refresh").addEventListener("click", loadRequests);
+
+  document.getElementById("logout").addEventListener("click", async () => {
+    await db.auth.signOut();
+    showLoggedIn(false);
+    requests.innerHTML = "";
+    status.textContent = "Déconnecté.";
+  });
+
+  db.auth.getSession().then(async ({ data, error }) => {
+    if (error) {
+      status.textContent = "Erreur de session : " + error.message;
+      return;
+    }
+    showLoggedIn(Boolean(data.session));
+    if (data.session) await loadRequests();
+  });
+})();
+</script>
 </body>
 </html>
