@@ -1,50 +1,92 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Solidaria Fund — Juntos por un mejor mañana</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solidaria Fund | Un futuro mejor</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;color:#183047;background:#fff}
+header{padding:18px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;gap:12px;flex-wrap:wrap}
+.logo{font-size:23px;font-weight:bold;color:#153b60}
+.logo span{color:#3a9b78}
+nav a{margin:0 8px;color:#29445b;text-decoration:none;font-size:14px}
+.hero{padding:55px 6%;display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center;background:#f3f7f8}
+.hero h1{font-size:clamp(32px,5vw,54px);line-height:1.1;margin:12px 0;color:#153b60}
+.hero p{font-size:17px;line-height:1.8;color:#536779}
+.hero img{width:100%;height:350px;object-fit:cover;border-radius:18px}
+.tag{color:#278365;font-weight:bold;text-transform:uppercase;letter-spacing:2px;font-size:12px}
+.btn{display:inline-block;background:#278365;color:white;text-decoration:none;padding:15px 22px;border-radius:7px;font-weight:bold;margin-top:12px}
+.btn2{background:#153b60;margin-left:8px}
+section{padding:55px 6%}
+.center{text-align:center}
+h2{font-size:32px;color:#153b60}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:30px}
+.card{border:1px solid #e4ebef;border-radius:12px;overflow:hidden;background:#fff}
+.card img{width:100%;height:180px;object-fit:cover}
+.card div{padding:20px}
+.card h3{color:#153b60}
+.card p{line-height:1.7;color:#607181}
+.banner{background:#153b60;color:white;text-align:center;padding:45px 6%}
+.banner h2{color:white}
+footer{padding:25px;text-align:center;color:#6b7a87;background:#f5f7f8;font-size:13px}
+@media(max-width:700px){.hero{grid-template-columns:1fr;padding-top:35px}.hero img{height:250px}.cards{grid-template-columns:1fr}nav{width:100%}nav a{margin:0 5px}}
+</style>
 </head>
 <body>
-<header class="header"><div class="wrap nav">
-<a class="logo" href="#"><span class="logo-mark">♥</span><span><b>Solidaria Fund</b><small>Juntos por un mejor mañana</small></span></a>
-<nav><a href="#inicio">Inicio</a><a href="#programas">Programas</a><a href="#nosotros">Quiénes somos</a><a href="#faq">Preguntas frecuentes</a><a href="#contacto">Contacto</a></nav>
-<div class="nav-right"><select id="lang"><option>🇪🇸 ES</option><option>🇵🇹 PT</option><option>🇮🇹 IT</option><option>🇫🇷 FR</option><option>🇩🇪 DE</option><option>🟥 RM</option></select><a class="btn green" href="apply.html">▣ &nbsp; Solicitar ayuda</a></div>
-</div></header>
+<header>
+  <div class="logo">Solidaria <span>Fund</span></div>
+  <nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#nosotros">Quiénes somos</a>
+    <a href="#ayuda">Programas</a>
+    <a href="apply.html">Solicitar apoyo</a>
+  </nav>
+</header>
 
-<section id="inicio" class="hero"><div class="hero-bg"></div><div class="wrap hero-inner">
-<div class="hero-copy"><div class="eyebrow">APOYO FINANCIERO · SOLIDARIDAD · UN MEJOR FUTURO</div>
-<h1>Juntos hacemos<br>realidad <em>tus proyectos</em></h1>
-<p>Solidaria Fund es una plataforma de ayuda financiera diseñada para apoyar a personas en situación de necesidad. Creemos en tu potencial y te acompañamos para construir un mejor futuro.</p>
-<a class="btn gold big" href="apply.html">▣ &nbsp; Solicitar ayuda ahora &nbsp; →</a></div>
-<div class="scribble">Tu proyecto<br><i>también importa</i> ♡</div>
-</div></section>
+<main>
+<section class="hero" id="inicio">
+  <div>
+    <div class="tag">Juntos podemos avanzar</div>
+    <h1>Un pequeño apoyo puede cambiar una vida.</h1>
+    <p>Solidaria Fund cree en un futuro con más oportunidades. Trabajamos para acercar apoyo y esperanza a las personas y familias que desean construir un mañana mejor.</p>
+    <a class="btn" href="apply.html">Solicitar apoyo</a>
+    <a class="btn btn2" href="#nosotros">Conócenos</a>
+  </div>
+  <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1100&q=85" alt="Personas compartiendo esperanza y solidaridad">
+</section>
 
-<section class="trust"><div class="wrap trust-grid">
-<div><b>♢</b><span><strong>Proceso seguro</strong><small>y confiable</small></span></div><div><b>♧</b><span><strong>Accesible para todos</strong><small>(según condiciones)</small></span></div><div><b>ϟ</b><span><strong>Tramitación simple</strong><small>y rápida</small></span></div><div><b>♢</b><span><strong>Un compromiso real</strong><small>contigo</small></span></div>
-</div></section>
+<section id="nosotros" class="center">
+  <div class="tag">Nuestra misión</div>
+  <h2>La solidaridad crea oportunidades</h2>
+  <p style="max-width:750px;margin:0 auto;line-height:1.8;color:#607181">Creemos que cada persona merece ser escuchada y tener la oportunidad de avanzar. Nuestro compromiso es promover la solidaridad, la dignidad y el acceso a nuevas posibilidades.</p>
+  <div class="cards">
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=800&q=80" alt="Personas trabajando juntas">
+      <div><h3>Apoyo humano</h3><p>Escuchamos las necesidades y tratamos cada solicitud con respeto y atención.</p></div>
+    </article>
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=800&q=80" alt="Comunidad reunida">
+      <div><h3>Más oportunidades</h3><p>Promovemos iniciativas que ayudan a las personas a mirar hacia el futuro con confianza.</p></div>
+    </article>
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=800&q=80" alt="Voluntarios ayudando a la comunidad">
+      <div><h3>Solidaridad</h3><p>Creemos en la fuerza de la colaboración y en el valor de cada persona.</p></div>
+    </article>
+  </div>
+</section>
 
-<section id="programas" class="section"><div class="wrap"><div class="section-title"><div><div class="eyebrow dark">SOLIDARIA FUND</div><h2>Nuestros programas</h2><p>Soluciones adaptadas a tus necesidades</p></div><a href="apply.html">Ver todos los programas →</a></div>
-<div class="programs">
-<article><img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=85"><div><span>♧</span><h3>Apoyo educativo</h3><p>Te ayudamos a continuar tus estudios y desarrollar tu talento profesional.</p><a href="apply.html">Saber más →</a></div></article>
-<article><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=85"><div><span>▣</span><h3>Formación profesional</h3><p>Impulsamos tu carrera con formación especializada y certificaciones.</p><a href="apply.html">Saber más →</a></div></article>
-<article><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=85"><div><span>⌂</span><h3>Creación de empresas</h3><p>Apoyamos tus ideas para que puedas emprender y generar ingresos.</p><a href="apply.html">Saber más →</a></div></article>
-<article><img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=85"><div><span>♧</span><h3>Proyectos agrícolas</h3><p>Invertimos en la agricultura para un futuro más sostenible.</p><a href="apply.html">Saber más →</a></div></article>
-</div></div></section>
+<section id="ayuda" class="banner">
+  <div class="tag" style="color:#a8e4ca">Tu próximo paso</div>
+  <h2>¿Necesitas apoyo?</h2>
+  <p style="line-height:1.8">Consulta la información disponible y presenta tu solicitud para que pueda ser revisada.</p>
+  <a class="btn" href="apply.html" style="background:#fff;color:#153b60">Ver formulario de solicitud</a>
+</section>
+</main>
 
-<section id="nosotros" class="how"><div class="how-photo"></div><div class="how-copy"><div class="eyebrow dark">¿CÓMO FUNCIONA?</div><h2>Un proceso simple, en pocos pasos</h2><p>Para que puedas acceder a la ayuda que necesitas.</p>
-<div class="steps"><div><b>1</b><h4>Completa tus datos</h4><small>y tu proyecto.</small></div><i>→</i><div><b>2</b><h4>Verificamos</h4><small>tu solicitud y te contactamos.</small></div><i>→</i><div><b>3</b><h4>Respuesta</h4><small>Recibes nuestra respuesta.</small></div><i>→</i><div><b>4</b><h4>Apoyo</h4><small>Si es aprobado, te ayudamos.</small></div></div></div></section>
-
-<section class="impact"><div class="wrap impact-grid"><div><div class="eyebrow dark">NUESTRO IMPACTO</div><h2>En cada solicitud, hay una historia.</h2></div><div><b>♧</b><strong>+5.000</strong><small>personas apoyadas</small></div><div><b>♡</b><strong>+20</strong><small>países</small></div><div><b>♧</b><strong>6</strong><small>idiomas disponibles</small></div><div><b>☆</b><strong>1</strong><small>misión: un futuro mejor</small></div></div></section>
-
-<section class="testimonial"><div class="wrap testimonial-grid"><div class="plant"><img src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=900&q=85"></div><div class="cta-mini"><small>¿Tienes un proyecto en mente?</small><h2>Tu futuro empieza<br>con una solicitud.</h2><p>Estamos aquí para ayudarte.</p><a class="btn gold" href="apply.html">Solicitar ayuda ahora →</a></div><div class="quote"><img src="https://images.unsplash.com/photo-1496440737103-cd596325d314?auto=format&fit=crop&w=800&q=85"><blockquote>“Gracias a Solidaria Fund, pude terminar mis estudios y hoy tengo un mejor futuro.”</blockquote><b>— Laura M., España</b></div></div></section>
-
-<section id="faq" class="faq"><div class="wrap faq-grid"><div><div class="eyebrow dark">PREGUNTAS FRECUENTES</div><h2>Encuentra respuestas a las dudas más comunes</h2><details open><summary>¿Quién puede solicitar ayuda?</summary><p>Las condiciones dependen del programa y de la información publicada.</p></details><details><summary>¿Cuáles son los requisitos de elegibilidad?</summary><p>Consulta las condiciones de cada programa antes de enviar tu solicitud.</p></details><details><summary>¿Cuánto tiempo tarda el proceso?</summary><p>El plazo puede variar según el tipo de solicitud.</p></details><details><summary>¿Qué tipo de proyectos se pueden presentar?</summary><p>Educación, formación profesional, empresas y proyectos agrícolas.</p></details></div>
-<div class="languages"><div class="globe">◎</div><h3>Disponible en varios idiomas</h3><p>Elige tu idioma para una mejor experiencia.</p><div class="langs"><button>🇪🇸 Español</button><button>🇵🇹 Português</button><button>🇮🇹 Italiano</button><button>🇫🇷 Français</button><button>🇩🇪 Deutsch</button><button>🟥 Rumantsch</button></div><div class="lang-note">♡ &nbsp; Tu idioma, nuestra prioridad</div></div></div></section>
-
-<section id="contacto" class="bottom-cta"><div class="wrap"><h2>¿Listo para dar el siguiente paso?</h2><p>Explica tu proyecto y descubre el proceso de solicitud.</p><a class="btn gold big" href="apply.html">Solicitar ayuda ahora →</a></div></section>
-<footer><div class="wrap foot"><div class="logo"><span class="logo-mark">♥</span><span><b>Solidaria Fund</b><small>Juntos por un mejor mañana</small></span></div><div><a href="#">Inicio</a><a href="#programas">Programas</a><a href="#nosotros">Quiénes somos</a><a href="#faq">Preguntas frecuentes</a><a href="#contacto">Contacto</a></div><div>🇪🇸 Español</div></div><div class="wrap copyright">© 2026 Solidaria Fund. Todos los derechos reservados. <span>Política de privacidad &nbsp; | &nbsp; Términos de uso</span></div></footer>
-<script src="assets/app.js"></script>
-</body></html>
+<footer>
+  <p><strong>Solidaria Fund</strong> · Solidaridad, dignidad y oportunidades.</p>
+  <p>La presentación de una solicitud no garantiza la aprobación ni la recepción de ayuda económica.</p>
+</footer>
+</body>
+</html>
