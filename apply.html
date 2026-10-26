@@ -1,119 +1,50 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Solicitar apoyo | Solidaria Fund</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;color:#183047;background:#f4f7f8}
-header{background:#fff;padding:18px 6%;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #e4ebef}
-.logo{font-size:23px;font-weight:bold;color:#153b60}
-.logo span{color:#329574}
-header a{color:#153b60;text-decoration:none;font-weight:bold}
-.hero{padding:42px 6%;background:#153b60;color:#fff;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
-.hero h1{font-size:clamp(30px,5vw,46px);margin:12px 0;line-height:1.12}
-.hero p{line-height:1.8;color:#e0e9f0}
-.hero img{width:100%;height:260px;object-fit:cover;border-radius:15px}
-.tag{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#8fdfbd;font-weight:bold}
-main{max-width:1000px;margin:35px auto;padding:0 18px}
-.panel{background:#fff;padding:30px;border-radius:16px;box-shadow:0 8px 30px #19364b12;margin-bottom:28px}
-h2{color:#153b60;margin-top:0}
-.intro{color:#617384;line-height:1.7}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-label{display:block;font-size:14px;font-weight:bold;margin-bottom:8px;color:#29445b}
-input,select,textarea{width:100%;padding:13px;border:1px solid #d5e0e7;border-radius:8px;font:inherit;background:#fff;color:#183047}
-input:focus,select:focus,textarea:focus{outline:2px solid #9bd7bf;border-color:#329574}
-.field{margin-bottom:18px}
-.full{grid-column:1/-1}
-button{border:0;background:#278365;color:#fff;padding:15px 24px;border-radius:8px;font-weight:bold;font-size:15px;cursor:pointer;width:100%}
-button:hover{background:#206e54}
-.note{font-size:13px;line-height:1.7;color:#6a7b88;background:#f2f7f5;padding:14px;border-radius:8px}
-footer{text-align:center;padding:25px;background:#fff;color:#6b7a87;font-size:13px}
-@media(max-width:650px){.hero{grid-template-columns:1fr;padding:32px 6%}.hero img{height:210px}.grid{grid-template-columns:1fr}.full{grid-column:auto}.panel{padding:22px 18px}}
-</style>
-</head>
-<body>
-<header>
-  <div class="logo">Solidaria <span>Fund</span></div>
-  <a href="index.html">← Volver al inicio</a>
-</header>
-
-<section class="hero">
-  <div>
-    <div class="tag">Estamos aquí para escucharte</div>
-    <h1>Cuéntanos cómo podemos ayudarte.</h1>
-    <p>Completa el formulario con información correcta. Tu solicitud podrá ser revisada de acuerdo con los criterios y recursos disponibles.</p>
-  </div>
-  <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1000&q=85" alt="Solidaridad y apoyo comunitario">
-</section>
-
-<main>
-  <section class="panel">
-    <h2>Formulario de solicitud</h2>
-    <p class="intro">Rellena los campos siguientes. Los campos marcados con * son obligatorios.</p>
-
-    <form id="supportForm">
-      <div class="grid">
-        <div class="field">
-          <label for="name">Nombre completo *</label>
-          <input id="name" name="name" required autocomplete="name" placeholder="Tu nombre completo">
-        </div>
-        <div class="field">
-          <label for="email">Correo electrónico *</label>
-          <input id="email" name="email" type="email" required autocomplete="email" placeholder="nombre@ejemplo.com">
-        </div>
-        <div class="field">
-          <label for="country">País de residencia *</label>
-          <input id="country" name="country" required autocomplete="country-name" placeholder="Tu país">
-        </div>
-        <div class="field">
-          <label for="phone">Teléfono de contacto</label>
-          <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="Tu número de teléfono">
-        </div>
-        <div class="field full">
-          <label for="type">Tipo de apoyo solicitado *</label>
-          <select id="type" name="type" required>
-            <option value="">Selecciona una opción</option>
-            <option>Apoyo para necesidades básicas</option>
-            <option>Apoyo familiar</option>
-            <option>Educación y formación</option>
-            <option>Proyecto profesional</option>
-            <option>Otro tipo de apoyo</option>
-          </select>
-        </div>
-        <div class="field full">
-          <label for="details">Describe tu situación *</label>
-          <textarea id="details" name="details" rows="5" required placeholder="Explica brevemente tu situación y el apoyo que necesitas."></textarea>
-        </div>
-        <div class="field full">
-          <label>
-            <input type="checkbox" required style="width:auto;margin-right:8px">
-            Confirmo que la información proporcionada es correcta.
-          </label>
-        </div>
-        <div class="field full">
-          <p class="note">Enviar el formulario no garantiza la aprobación ni la recepción de ayuda económica. No envíes contraseñas ni datos bancarios confidenciales.</p>
-          <button type="submit">Enviar solicitud</button>
-          <p id="feedback" role="status" aria-live="polite"></p>
-        </div>
-      </div>
-    </form>
-  </section>
-</main>
-
-<footer>
-  <strong>Solidaria Fund</strong>
-  <p>Solidaridad, dignidad y oportunidades.</p>
-</footer>
-
 <script>
-document.getElementById("supportForm").addEventListener("submit", function(event) {
+document.getElementById("supportForm").addEventListener("submit", async function(event) {
   event.preventDefault();
-  document.getElementById("feedback").textContent =
-    "La apariencia del formulario está lista, pero el envío real todavía no está conectado. Contacta con el administrador para confirmar cómo presentar tu solicitud.";
-  document.getElementById("feedback").style.color = "#206e54";
+
+  const feedback = document.getElementById("feedback");
+  const button = this.querySelector('button[type="submit"]');
+
+  feedback.textContent = "Enviando tu solicitud...";
+  button.disabled = true;
+
+  const datos = {
+    nombre_complet: document.getElementById("name").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    telephone: document.getElementById("phone").value.trim(),
+    pays: document.getElementById("country").value.trim(),
+    motif: document.getElementById("type").value + ": " +
+           document.getElementById("details").value.trim()
+  };
+
+  try {
+    const respuesta = await fetch(
+      "https://dhbxjbgwkqhegdmwmjpy.supabase.co/rest/v1/demandes",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": "sb_publishable_4kZy4-3B9tIJOfpcKX_XxQ_tzL6VCTL",
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify(datos)
+      }
+    );
+
+    if (!respuesta.ok) {
+      throw new Error("Error al guardar la solicitud.");
+    }
+
+    feedback.textContent = "¡Solicitud enviada correctamente!";
+    feedback.style.color = "#206e54";
+    this.reset();
+
+  } catch (error) {
+    feedback.textContent =
+      "No se pudo enviar. Inténtalo de nuevo más tarde.";
+    feedback.style.color = "#b42318";
+  } finally {
+    button.disabled = false;
+  }
 });
 </script>
-</body>
-</html>
