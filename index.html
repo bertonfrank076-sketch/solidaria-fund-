@@ -4,13 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Solidaria Fund | Un futuro mejor</title>
+
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;color:#183047;background:#fff}
 header{padding:18px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;gap:12px;flex-wrap:wrap}
 .logo{font-size:23px;font-weight:bold;color:#153b60}
 .logo span{color:#3a9b78}
+nav{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
 nav a{margin:0 8px;color:#29445b;text-decoration:none;font-size:14px}
+.language-box{margin-left:8px}
+#languageSelect{padding:8px 10px;border:1px solid #d7e0e5;border-radius:7px;background:#fff;color:#29445b;font-size:13px;cursor:pointer}
 .hero{padding:55px 6%;display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center;background:#f3f7f8}
 .hero h1{font-size:clamp(32px,5vw,54px);line-height:1.1;margin:12px 0;color:#153b60}
 .hero p{font-size:17px;line-height:1.8;color:#536779}
@@ -30,63 +34,196 @@ h2{font-size:32px;color:#153b60}
 .banner{background:#153b60;color:white;text-align:center;padding:45px 6%}
 .banner h2{color:white}
 footer{padding:25px;text-align:center;color:#6b7a87;background:#f5f7f8;font-size:13px}
-@media(max-width:700px){.hero{grid-template-columns:1fr;padding-top:35px}.hero img{height:250px}.cards{grid-template-columns:1fr}nav{width:100%}nav a{margin:0 5px}}
+
+@media(max-width:700px){
+  .hero{grid-template-columns:1fr;padding-top:35px}
+  .hero img{height:250px}
+  .cards{grid-template-columns:1fr}
+  nav{width:100%;justify-content:center}
+  nav a{margin:0 5px}
+  .language-box{margin-left:4px}
+}
 </style>
 </head>
+
 <body>
+
 <header>
   <div class="logo">Solidaria <span>Fund</span></div>
+
   <nav>
-    <a href="#inicio">Inicio</a>
-    <a href="#nosotros">Quiénes somos</a>
-    <a href="#ayuda">Programas</a>
-    <a href="apply.html">Solicitar apoyo</a>
+    <a href="#inicio" data-i18n="nav_home">Inicio</a>
+    <a href="#nosotros" data-i18n="nav_about">Quiénes somos</a>
+    <a href="#ayuda" data-i18n="nav_programs">Programas</a>
+    <a href="apply.html" data-i18n="nav_apply">Solicitar apoyo</a>
+
+    <div class="language-box">
+      <select id="languageSelect" aria-label="Language">
+        <option value="es">🇪🇸 Español</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="pt">🇵🇹 Português</option>
+        <option value="it">🇮🇹 Italiano</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="rm">🇨🇭 Rumantsch</option>
+      </select>
+    </div>
   </nav>
 </header>
 
 <main>
+
 <section class="hero" id="inicio">
   <div>
-    <div class="tag">Juntos podemos avanzar</div>
-    <h1>Un pequeño apoyo puede cambiar una vida.</h1>
-    <p>Solidaria Fund cree en un futuro con más oportunidades. Trabajamos para acercar apoyo y esperanza a las personas y familias que desean construir un mañana mejor.</p>
-    <a class="btn" href="apply.html">Solicitar apoyo</a>
-    <a class="btn btn2" href="#nosotros">Conócenos</a>
+    <div class="tag" data-i18n="hero_tag">Juntos podemos avanzar</div>
+
+    <h1 data-i18n="hero_title">
+      Un pequeño apoyo puede cambiar una vida.
+    </h1>
+
+    <p data-i18n="hero_text">
+      Solidaria Fund cree en un futuro con más oportunidades.
+      Trabajamos para acercar apoyo y esperanza a las personas y familias
+      que desean construir un mañana mejor.
+    </p>
+
+    <a class="btn" href="apply.html" data-i18n="hero_apply">
+      Solicitar apoyo
+    </a>
+
+    <a class="btn btn2" href="#nosotros" data-i18n="hero_about">
+      Conócenos
+    </a>
   </div>
-  <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1100&q=85" alt="Personas compartiendo esperanza y solidaridad">
+
+  <img
+    src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1100&q=85"
+    alt="Personas compartiendo esperanza y solidaridad"
+    data-i18n="hero_image_alt"
+  >
 </section>
 
 <section id="nosotros" class="center">
-  <div class="tag">Nuestra misión</div>
-  <h2>La solidaridad crea oportunidades</h2>
-  <p style="max-width:750px;margin:0 auto;line-height:1.8;color:#607181">Creemos que cada persona merece ser escuchada y tener la oportunidad de avanzar. Nuestro compromiso es promover la solidaridad, la dignidad y el acceso a nuevas posibilidades.</p>
+
+  <div class="tag" data-i18n="mission_tag">
+    Nuestra misión
+  </div>
+
+  <h2 data-i18n="mission_title">
+    La solidaridad crea oportunidades
+  </h2>
+
+  <p
+    data-i18n="mission_text"
+    style="max-width:750px;margin:0 auto;line-height:1.8;color:#607181"
+  >
+    Creemos que cada persona merece ser escuchada y tener la oportunidad
+    de avanzar. Nuestro compromiso es promover la solidaridad, la dignidad
+    y el acceso a nuevas posibilidades.
+  </p>
+
   <div class="cards">
+
     <article class="card">
-      <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=800&q=80" alt="Personas trabajando juntas">
-      <div><h3>Apoyo humano</h3><p>Escuchamos las necesidades y tratamos cada solicitud con respeto y atención.</p></div>
+      <img
+        src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=800&q=80"
+        alt="Personas trabajando juntas"
+        data-i18n="card1_image_alt"
+      >
+      <div>
+        <h3 data-i18n="card1_title">Apoyo humano</h3>
+        <p data-i18n="card1_text">
+          Escuchamos las necesidades y tratamos cada solicitud
+          con respeto y atención.
+        </p>
+      </div>
     </article>
+
     <article class="card">
-      <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=800&q=80" alt="Comunidad reunida">
-      <div><h3>Más oportunidades</h3><p>Promovemos iniciativas que ayudan a las personas a mirar hacia el futuro con confianza.</p></div>
+      <img
+        src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=800&q=80"
+        alt="Comunidad reunida"
+        data-i18n="card2_image_alt"
+      >
+      <div>
+        <h3 data-i18n="card2_title">Más oportunidades</h3>
+        <p data-i18n="card2_text">
+          Promovemos iniciativas que ayudan a las personas
+          a mirar hacia el futuro con confianza.
+        </p>
+      </div>
     </article>
+
     <article class="card">
-      <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=800&q=80" alt="Voluntarios ayudando a la comunidad">
-      <div><h3>Solidaridad</h3><p>Creemos en la fuerza de la colaboración y en el valor de cada persona.</p></div>
+      <img
+        src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=800&q=80"
+        alt="Voluntarios ayudando a la comunidad"
+        data-i18n="card3_image_alt"
+      >
+      <div>
+        <h3 data-i18n="card3_title">Solidaridad</h3>
+        <p data-i18n="card3_text">
+          Creemos en la fuerza de la colaboración y en el valor de cada persona.
+        </p>
+      </div>
     </article>
+
   </div>
 </section>
 
 <section id="ayuda" class="banner">
-  <div class="tag" style="color:#a8e4ca">Tu próximo paso</div>
-  <h2>¿Necesitas apoyo?</h2>
-  <p style="line-height:1.8">Consulta la información disponible y presenta tu solicitud para que pueda ser revisada.</p>
-  <a class="btn" href="apply.html" style="background:#fff;color:#153b60">Ver formulario de solicitud</a>
+
+  <div
+    class="tag"
+    style="color:#a8e4ca"
+    data-i18n="help_tag"
+  >
+    Tu próximo paso
+  </div>
+
+  <h2 data-i18n="help_title">
+    ¿Necesitas apoyo?
+  </h2>
+
+  <p
+    data-i18n="help_text"
+    style="line-height:1.8"
+  >
+    Consulta la información disponible y presenta tu solicitud
+    para que pueda ser revisada.
+  </p>
+
+  <a
+    class="btn"
+    href="apply.html"
+    style="background:#fff;color:#153b60"
+    data-i18n="help_button"
+  >
+    Ver formulario de solicitud
+  </a>
+
 </section>
+
 </main>
 
 <footer>
-  <p><strong>Solidaria Fund</strong> · Solidaridad, dignidad y oportunidades.</p>
-  <p>La presentación de una solicitud no garantiza la aprobación ni la recepción de ayuda económica.</p>
+
+  <p>
+    <strong>Solidaria Fund</strong>
+    ·
+    <span data-i18n="footer_motto">
+      Solidaridad, dignidad y oportunidades.
+    </span>
+  </p>
+
+  <p data-i18n="footer_notice">
+    La presentación de una solicitud no garantiza la aprobación
+    ni la recepción de ayuda económica.
+  </p>
+
 </footer>
+
+<script src="i18n.js"></script>
+<script src="App.js"></script>
+
 </body>
 </html>
