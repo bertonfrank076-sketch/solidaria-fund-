@@ -9,46 +9,53 @@
     * { box-sizing: border-box; }
     body { margin: 0; font-family: Arial, sans-serif; background: #f2f6fb; color: #18304f; }
     header { background: #102e55; color: white; padding: 22px 18px; }
-    main { max-width: 1000px; margin: 28px auto; padding: 0 16px; }
+    header .top, main { max-width: 1000px; margin: auto; }
+    header .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    header a { color: white; }
+    main { padding: 24px 16px; }
     .panel { background: white; padding: 22px; border-radius: 14px; margin-bottom: 18px; box-shadow: 0 5px 20px #18304f12; }
     input, button { width: 100%; padding: 12px; margin: 7px 0; border-radius: 8px; font-size: 16px; }
     input { border: 1px solid #ccd5e0; }
     button { border: 0; background: #1765b4; color: white; font-weight: bold; cursor: pointer; }
-    .secondary { background: #52657a; }
-    .request { border-top: 1px solid #e1e7ef; padding: 14px 0; overflow-wrap: anywhere; }
-    .muted { color: #65758a; }
+    button.secondary { background: #52657a; }
+    .request { border-top: 1px solid #e1e7ef; padding: 15px 0; overflow-wrap: anywhere; }
+    .muted { color: #65758a; line-height: 1.5; }
     #status { white-space: pre-wrap; overflow-wrap: anywhere; }
     [hidden] { display: none !important; }
   </style>
 </head>
 <body>
 <header>
-  <h2>Solidaria Fund — Administration</h2>
-  <p>Gestion des demandes</p>
+  <div class="top">
+    <div>
+      <h2>Solidaria Fund</h2>
+      <p>Espace d’administration</p>
+    </div>
+    <a href="index.html">← Retour au site</a>
+  </div>
 </header>
 
 <main>
   <section id="loginPanel" class="panel">
-    <h2>Connexion administrateur</h2>
-    <p class="muted">Connecte-toi avec ton compte Supabase.</p>
+    <h1>Connexion administrateur</h1>
+    <p class="muted">Utilise ton compte Supabase Auth.</p>
     <form id="loginForm">
-      <input id="email" type="email" placeholder="Adresse e-mail" required>
-      <input id="password" type="password" placeholder="Mot de passe" required>
+      <input id="email" type="email" placeholder="Adresse e-mail" required autocomplete="username">
+      <input id="password" type="password" placeholder="Mot de passe" required autocomplete="current-password">
       <button type="submit">Se connecter</button>
     </form>
   </section>
 
   <section id="dashboard" class="panel" hidden>
-    <h2>Demandes reçues</h2>
-    <p id="count"></p>
-    <button id="refresh">Actualiser</button>
+    <h1>Demandes reçues</h1>
+    <p id="count" class="muted"></p>
+    <button id="refresh">Actualiser les demandes</button>
     <button id="logout" class="secondary">Se déconnecter</button>
     <div id="requests"></div>
   </section>
 
   <section class="panel">
-    <p id="status">Prêt.</p>
-    <a href="index.html">← Retour au site</a>
+    <p id="status" role="status">Prêt.</p>
   </section>
 </main>
 
@@ -63,8 +70,8 @@
   const requests = document.getElementById("requests");
   const count = document.getElementById("count");
 
-  if (!window.supabase || SUPABASE_ANON_KEY === "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRoYnhqYmd3a3FoZWdkbXdtanB5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI5Nzk0NTUsImV4cCI6MjEwODU1NTQ1NX0.J2jb9mwsp2u-QWWkRBy5ggEJo9W--QTVOsRGr5RgZf4") {
-    status.textContent = "Configuration incomplète : ajoute la clé publique Supabase.";
+  if (!window.supabase) {
+    status.textContent = "Erreur : la bibliothèque Supabase n'a pas pu être chargée. Recharge la page.";
     return;
   }
 
@@ -72,14 +79,17 @@
 
   function safe(value) {
     return String(value ?? "").replace(/[&<>"']/g, c => ({
-      "&": "&amp;", "<": "&lt;", ">": "&gt;",
-      '"': "&quot;", "'": "&#39;"
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
     })[c]);
   }
 
-  function showLoggedIn(value) {
-    loginPanel.hidden = value;
-    dashboard.hidden = !value;
+  function showLoggedIn(isLoggedIn) {
+    loginPanel.hidden = isLoggedIn;
+    dashboard.hidden = !isLoggedIn;
   }
 
   async function loadRequests() {
@@ -92,24 +102,30 @@
       .order("created_at", { ascending: false });
 
     if (error) {
-      status.textContent = "Erreur de chargement : " + error.message;
+      status.textContent =
+        "Impossible de charger les demandes. Vérifie la politique SELECT dans Supabase. Détail : " +
+        error.message;
       return;
     }
 
     count.textContent = data.length + " demande(s)";
 
-    if (!data.length) {
+    if (data.length === 0) {
       requests.innerHTML = "<p>Aucune demande trouvée.</p>";
     } else {
       requests.innerHTML = data.map(item => `
         <article class="request">
-          <h3>${safe(item.nombre_complet)}</h3>
+          <h3>${safe(item.nombre_complet || "Nom non renseigné")}</h3>
           <p><strong>Numéro :</strong> ${safe(item.id)}</p>
           <p><strong>E-mail :</strong> ${safe(item.email)}</p>
           <p><strong>Téléphone :</strong> ${safe(item.telephone)}</p>
           <p><strong>Pays :</strong> ${safe(item.pays)}</p>
           <p><strong>Motif :</strong> ${safe(item.motif)}</p>
-          <p class="muted">${safe(item.created_at ? new Date(item.created_at).toLocaleString("fr-FR") : "")}</p>
+          <p class="muted"><strong>Date :</strong> ${
+            safe(item.created_at
+              ? new Date(item.created_at).toLocaleString("fr-FR")
+              : "Inconnue")
+          }</p>
         </article>
       `).join("");
     }
@@ -149,6 +165,7 @@
       status.textContent = "Erreur de session : " + error.message;
       return;
     }
+
     showLoggedIn(Boolean(data.session));
     if (data.session) await loadRequests();
   });
