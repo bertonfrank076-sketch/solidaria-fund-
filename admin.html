@@ -1,1 +1,142 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Solidaria Fund — Admin</title><link rel="stylesheet" href="assets/style.css"></head><body class="admin"><div id="login" class="login"><div class="login-card"><div class="logo"><span class="logo-mark">♥</span><span><b>Solidaria Fund</b><small>Panel de administración</small></span></div><h1>Bienvenido de nuevo</h1><p>Accede al panel de gestión.</p><label>Identificador<input id="u" value="admin"></label><label>Contraseña<input id="p" type="password" value="solidaria2026"></label><button id="enter" class="btn green big">Entrar →</button><small>Demo: cambia las credenciales antes de producción.</small></div></div><div id="panel" class="admin-shell" hidden><aside><a class="logo" href="index.html"><span class="logo-mark">♥</span><span><b>Solidaria Fund</b><small>Juntos por un mejor mañana</small></span></a><nav><a class="active">⌂ &nbsp; Panel de control</a><a>▣ &nbsp; Solicitudes <em id="badge">0</em></a><a>♧ &nbsp; Usuarios</a><a>♢ &nbsp; Programas</a><a>✉ &nbsp; Mensajes</a><a>▤ &nbsp; Reportes</a><a>⚙ &nbsp; Configuración</a></nav><button id="out">↪ &nbsp; Cerrar sesión</button></aside><main class="dash"><div class="dash-top"><input placeholder="⌕  Buscar una solicitud, un usuario o un número de referencia..."><span>🔔 &nbsp; 🇪🇸 Español &nbsp; 👤 Administrador</span></div><div class="admin-hero"><div><small>Hoy es 26 de octubre de 2026</small><h1>Bienvenido de nuevo,<br>Administrador</h1><p>Aquí puedes gestionar las solicitudes, revisar los detalles y hacer seguimiento a cada caso.</p></div></div><div class="stats"><div><span>Total de solicitudes</span><b id="total">0</b><small>en este navegador</small></div><div><span>Aprobadas</span><b>—</b><small>conectado al backend</small></div><div><span>En revisión</span><b id="pending">0</b><small>pendientes</small></div><div><span>Rechazadas</span><b>—</b><small>conectado al backend</small></div></div><div class="dash-grid"><section class="chart"><div class="panel-title"><h2>Solicitudes por programa</h2><span>Últimos 30 días⌄</span></div><div class="bars"><i style="height:78%"><b>Apoyo educativo</b></i><i style="height:60%"><b>Formación profesional</b></i><i style="height:45%"><b>Creación de empresas</b></i><i style="height:38%"><b>Proyectos agrícolas</b></i></div></section><section class="activity"><h2>Actividad reciente</h2><div id="activity">No hay solicitudes todavía.</div></section></div><section class="requests"><div class="panel-title"><h2>Últimas solicitudes</h2><a href="index.html">Ver sitio →</a></div><div id="list"></div></section></main></div><script src="assets/app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administración | Solidaria Fund</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f2f6fb;
+      color: #18304f;
+    }
+    header {
+      background: #102e55;
+      color: white;
+      padding: 24px 18px;
+    }
+    .top {
+      max-width: 1050px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .brand { font-size: 22px; font-weight: bold; }
+    .brand span { color: #72d6a0; }
+    header p { margin: 7px 0 0; color: #dce8f6; }
+    main {
+      max-width: 1050px;
+      margin: 32px auto;
+      padding: 0 16px;
+    }
+    .welcome {
+      background: white;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 8px 28px #18304f12;
+      margin-bottom: 22px;
+    }
+    h1 { margin: 0 0 10px; font-size: 28px; }
+    .muted { color: #65758a; line-height: 1.6; }
+    .notice {
+      background: #fff7df;
+      border: 1px solid #f0d58a;
+      color: #725515;
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin-top: 18px;
+      line-height: 1.5;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 16px;
+      box-shadow: 0 8px 28px #18304f10;
+    }
+    .symbol { font-size: 28px; }
+    .card h2 { font-size: 17px; margin: 12px 0 8px; }
+    .card p { color: #65758a; line-height: 1.55; margin-bottom: 0; }
+    .button {
+      display: inline-block;
+      margin-top: 16px;
+      background: #1765b4;
+      color: white;
+      padding: 11px 16px;
+      border-radius: 9px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      color: #718096;
+      padding: 28px 16px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top">
+      <div>
+        <div class="brand">Solidaria <span>Fund</span></div>
+        <p>Espace d’administration</p>
+      </div>
+      <a href="index.html" style="color:white">← Voir le site</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="welcome">
+      <h1>Tableau de bord</h1>
+      <p class="muted">
+        Bienvenue dans l’espace de gestion de Solidaria Fund.
+        Retrouvez ici les informations utiles pour administrer le site.
+      </p>
+      <div class="notice">
+        <strong>Mode démonstration :</strong> cette page est uniquement
+        visuelle. Elle ne possède pas de connexion sécurisée et ne récupère
+        pas les demandes envoyées depuis le formulaire.
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <div class="symbol">📋</div>
+        <h2>Demandes reçues</h2>
+        <p>Les demandes ne sont pas stockées sur un serveur dans cette version.</p>
+      </article>
+
+      <article class="card">
+        <div class="symbol">👥</div>
+        <h2>Bénéficiaires</h2>
+        <p>Préparez un système de suivi des dossiers lorsque le backend sera configuré.</p>
+      </article>
+
+      <article class="card">
+        <div class="symbol">🔒</div>
+        <h2>Sécurité</h2>
+        <p>Une authentification côté serveur sera nécessaire avant toute utilisation réelle.</p>
+      </article>
+
+      <article class="card">
+        <div class="symbol">🌐</div>
+        <h2>Site public</h2>
+        <p>Retournez à la page d’accueil pour vérifier l’expérience des visiteurs.</p>
+        <a class="button" href="index.html">Ouvrir le site</a>
+      </article>
+    </section>
+  </main>
+
+  <footer>© Solidaria Fund — Espace de démonstration</footer>
+</body>
+</html>
