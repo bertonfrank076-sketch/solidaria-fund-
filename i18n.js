@@ -226,4 +226,3 @@ window.SF_I18N = {
     footer_motto: "Solidaritad, dignitad e pussaivladads.",
     footer_notice: "La preschentaziun d'ina dumonda na garantescha ni l'approvaziun ni la recepziun d'agid finanzial."
   }
-};
